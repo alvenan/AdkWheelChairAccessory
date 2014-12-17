@@ -10,7 +10,7 @@ const int centerValue = 152;
 byte X_value, Y_value;
 
 // Accessory descriptor. It's how Arduino identifies itself to Android.
-char applicationName[] = "adk-wheel-chair"; // the app on your phone.
+char applicationName[] = "WheelChairJoystick"; // the app on your phone.
 char accessoryName[] = "Arduino Due"; // your Arduino board.
 char companyName[] = "engcomp-ufam";
 
@@ -31,7 +31,7 @@ void setup() {
 
   pinMode(led, OUTPUT);
   //Indicate start of program
-  for (int i = 0; i <= 3; i++) {
+  for (int i = 0; i <= 2; i++) {
     digitalWrite(led, HIGH);
     delay(250);
     digitalWrite(led, LOW);
@@ -48,6 +48,15 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  Usb.Task();
+  if (adk.isReady()) {
+    digitalWrite(led, HIGH);
+    delay(100);
+    digitalWrite(led, LOW);
+    delay(100);
 
+    Serial.println("Adk ENCONTRADO!!");
+  } else {
+    Serial.println("Adk nao encontrado!");
+  }
 }
