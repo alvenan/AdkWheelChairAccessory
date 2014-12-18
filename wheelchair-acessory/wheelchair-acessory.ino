@@ -5,6 +5,7 @@
 
 #define AXIS_X  66
 #define AXIS_Y  67
+#define RCVSIZE 128
 
 const int centerValue = 152;
 byte X_value, Y_value;
@@ -48,14 +49,26 @@ void setup() {
 }
 
 void loop() {
+  uint8_t buf[RCVSIZE];
+  uint32_t nbread = 0;
+
   Usb.Task();
   if (adk.isReady()) {
-    digitalWrite(led, HIGH);
-    delay(100);
-    digitalWrite(led, LOW);
-    delay(100);
-
-    Serial.println("Adk ENCONTRADO!!");
+    adk.read(&nbread, RCVSIZE, buf);
+    if (nbread > 0) {
+      char vector[7];
+      for (int i = 0; i <= 6; i++) {
+        vector[i] = buf[i];
+        if ((vector[i] == vector[2]) || (vector[i] == vector[6])) {
+          Serial.print((byte)vector[i]);
+          Serial.print(", ");
+        } else {
+          Serial.print(vector[i]);
+          Serial.print(", ");
+        }
+      }
+      Serial.println("");
+    }
   } else {
     Serial.println("Adk nao encontrado!");
   }
