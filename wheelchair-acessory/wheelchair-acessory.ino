@@ -59,16 +59,62 @@ void loop() {
       char vector[7];
       for (int i = 0; i <= 6; i++) {
         vector[i] = buf[i];
-        if ((vector[i] == vector[2]) || (vector[i] == vector[6])) {
-          Serial.print((byte)vector[i]);
-          Serial.print(", ");
-        } else {
-          Serial.print(vector[i]);
-          Serial.print(", ");
-        }
+        //        if ((vector[i] == vector[2]) || (vector[i] == vector[6])) {
+        //          Serial.print((byte)vector[i]);
+        //          Serial.print(", ");
+        //        } else {
+        //          Serial.print(vector[i]);
+        //          Serial.print(", ");
+        //        }
       }
-      Serial.println("");
+      //      Serial.println("");
+
+      switch (vector[0]) {
+        case 'f':
+        case 'b':
+        case 'y':
+          //analogWrite(AXIS_Y,vector[2]);
+          Y_value = vector[2];
+          break;
+        case 'l':
+        case 'r':
+        case 'x':
+          //analogWrite(AXIS_X,vector[2]);
+          X_value = vector[2];
+          break;
+        case '0':
+          Y_value = centerValue;
+          X_value = centerValue;
+          break;
+        case ';':
+        default:
+          break;
+      }
+      switch (vector[4]) {
+        case 'f':
+        case 'b':
+        case 'y':
+          //analogWrite(AXIS_Y,vector[6]);
+          Y_value = vector[6];
+          break;
+        case 'l':
+        case 'r':
+        case 'x':
+          //analogWrite(AXIS_X,vector[6]);
+          X_value = vector[6];
+          break;
+        case ';':
+        default:
+          break;
+      }
     }
+    Serial.print(X_value);
+    Serial.print(", ");
+    Serial.print(Y_value);
+    Serial.println("");
+    //    analogWrite(AXIS_Y, Y_value);
+    //    analogWrite(AXIS_X, X_value);
+
   } else {
     Serial.println("Adk nao encontrado!");
   }
