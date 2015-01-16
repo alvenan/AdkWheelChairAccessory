@@ -59,15 +59,15 @@ void loop() {
       char vector[7];
       for (int i = 0; i <= 6; i++) {
         vector[i] = buf[i];
-        //        if ((vector[i] == vector[2]) || (vector[i] == vector[6])) {
-        //          Serial.print((byte)vector[i]);
-        //          Serial.print(", ");
-        //        } else {
-        //          Serial.print(vector[i]);
-        //          Serial.print(", ");
-        //        }
+                if ((vector[i] == vector[2]) || (vector[i] == vector[6])) {
+                  Serial.print((byte)vector[i]);
+                  Serial.print(", ");
+               } else {
+                  Serial.print(vector[i]);
+                  Serial.print(", ");
+                }
       }
-      //      Serial.println("");
+            Serial.println("");
 
       switch (vector[0]) {
         case 'f':
@@ -108,6 +108,8 @@ void loop() {
           break;
       }
     }
+    
+    Serial.print(", ");
     Serial.print(X_value);
     Serial.print(", ");
     Serial.print(Y_value);
@@ -116,6 +118,6 @@ void loop() {
     //    analogWrite(AXIS_X, X_value);
 
   } else {
-    Serial.println("Adk nao encontrado!");
+    Serial.println("ADK NOT FOUND!");
   }
 }
